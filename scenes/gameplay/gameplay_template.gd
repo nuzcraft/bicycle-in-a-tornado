@@ -24,4 +24,6 @@ func start():
 
 
 func _process(delta):
-	pass
+	elapsed += delta
+	$Sprite.position.x = Game.size.x / 2 + 150 * sin(2 * 0.4 * PI * elapsed)
+	$Sprite.position.y = Game.size.y / 2 + 100 * sin(2 * 0.2 *  PI * elapsed)
