@@ -3,6 +3,7 @@ class_name Bicycle
 
 export(int) var ACCELERATION = 150
 export(int) var FRICTION = 400
+export(int) var MAX_SPEED = 1000
 
 enum {
 	MOVE,
@@ -37,3 +38,7 @@ func apply_friction(input, delta):
 func apply_acceleration(input, delta):
 	velocity.x += ACCELERATION * delta * input.x
 	velocity.y += ACCELERATION * delta * input.y
+	if velocity.x > MAX_SPEED:
+		velocity.x = MAX_SPEED
+	if velocity.y > MAX_SPEED:
+		velocity.y = MAX_SPEED
