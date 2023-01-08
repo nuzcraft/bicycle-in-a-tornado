@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Bicycle",
+"language": "GDScript",
+"path": "res://scenes/bicycle/bicycle.gd"
+}, {
 "base": "Reference",
 "class": "SceneData",
 "language": "GDScript",
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://addons/game-template/transition/transition.gd"
 } ]
 _global_script_class_icons={
+"Bicycle": "",
 "SceneData": "",
 "Scenes": "",
 "Transition": ""
