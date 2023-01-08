@@ -8,6 +8,7 @@ onready var camera_bounds = {
 	"right": camera_pos.x + Game.size.x / 2,
 }
 onready var bicycle = $Bicycle
+var elapsed = 0
 
 # `pre_start()` is called when a scene is loaded.
 # Use this function to receive params from `Game.change_scene(params)`.
@@ -31,6 +32,10 @@ func start():
 
 
 func _process(delta):
+	elapsed += delta
+	bicycle.global_position.x += 0.3 * sin(2 * 0.4 * PI * elapsed)
+	bicycle.global_position.y += 0.2 * sin(2 * 0.2 *  PI * elapsed)
+	
 	bicycle.global_position.x = clamp(bicycle.global_position.x, camera_bounds["left"], camera_bounds["right"])
 	if bicycle.global_position.x <= camera_bounds["left"] or bicycle.global_position.x >= camera_bounds["right"]:
 		bicycle.velocity.x = 0

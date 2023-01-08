@@ -9,9 +9,11 @@ height = 68.0
 
 [node name="Bicycle" type="KinematicBody2D"]
 script = ExtResource( 1 )
-ACCELERATION = 750
+ACCELERATION = 500
 FRICTION = 1000
 MAX_SPEED = 500
+ROTATION_SPEED = 50
+MAX_ROTATION_DEGREES = 45
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.25, 0.25 )

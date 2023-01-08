@@ -4,6 +4,8 @@ class_name Bicycle
 export(int) var ACCELERATION = 150
 export(int) var FRICTION = 400
 export(int) var MAX_SPEED = 1000
+export(int) var ROTATION_SPEED = 10
+export(int) var MAX_ROTATION_DEGREES = 90
 
 enum {
 	MOVE,
@@ -27,6 +29,7 @@ func move_state(input, delta):
 	
 	apply_friction(input, delta)
 	apply_acceleration(input, delta)
+	apply_rotation(input, delta)
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 func apply_friction(input, delta):
@@ -42,3 +45,7 @@ func apply_acceleration(input, delta):
 		velocity.x = MAX_SPEED
 	if velocity.y > MAX_SPEED:
 		velocity.y = MAX_SPEED
+		
+func apply_rotation(input, delta):
+	rotation_degrees += ROTATION_SPEED * delta * input.x
+	rotation_degrees = clamp(rotation_degrees, -MAX_ROTATION_DEGREES, MAX_ROTATION_DEGREES)
