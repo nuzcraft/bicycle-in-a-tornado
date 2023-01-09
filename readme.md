@@ -2,19 +2,19 @@
 
 ## Development Schedule
 
-[x] bicycle with controls
-[ ] flying objects
-[ ] objects can be collected
-[ ] obstacles
-[ ] obstacles can knock off collected objects
-[ ] tornado environment
-[ ] score and timer
-[ ] start screen
-[ ] end screen
-[ ] better bicycle graphics
-[ ] more items
-[ ] more obstacles
-[ ] adjust bike controls with more collected objects
+- [x] bicycle with controls
+- [x] flying objects
+- [ ] objects can be collected
+- [ ] obstacles
+- [ ] obstacles can knock off collected objects
+- [ ] tornado environment
+- [ ] score and timer
+- [ ] start screen
+- [ ] end screen
+- [ ] better bicycle graphics
+- [ ] more items
+- [ ] more obstacles
+- [ ] adjust bike controls with more collected objects
 
 ## Thanks
 

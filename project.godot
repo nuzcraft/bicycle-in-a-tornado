@@ -43,7 +43,7 @@ run/main_scene="res://scenes/menu/menu.tscn"
 boot_splash/image="res://assets/splash.png"
 boot_splash/bg_color=Color( 0.0862745, 0.0862745, 0.0862745, 1 )
 config/icon="res://assets/sprites/cruiser-classic-red-creme.webp"
-config/version="0.0.2"
+config/version="0.0.3"
 
 [autoload]
 
@@ -73,6 +73,10 @@ pause={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[physics]
+
+2d/default_gravity=0
 
 [rendering]
 
