@@ -3,7 +3,7 @@
 ## Development Schedule
 
 - [x] bicycle with controls
-- [ ] flying objects
+- [x] flying objects
 - [ ] objects can be collected
 - [ ] obstacles
 - [ ] obstacles can knock off collected objects
