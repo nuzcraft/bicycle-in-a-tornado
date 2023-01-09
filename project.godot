@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Bicycle",
+"language": "GDScript",
+"path": "res://scenes/bicycle/bicycle.gd"
+}, {
 "base": "Reference",
 "class": "SceneData",
 "language": "GDScript",
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://addons/game-template/transition/transition.gd"
 } ]
 _global_script_class_icons={
+"Bicycle": "",
 "SceneData": "",
 "Scenes": "",
 "Transition": ""
@@ -32,12 +38,12 @@ _global_script_class_icons={
 
 [application]
 
-config/name="godot-game-template"
+config/name="Bicycle in a Tornado"
 run/main_scene="res://scenes/menu/menu.tscn"
 boot_splash/image="res://assets/splash.png"
 boot_splash/bg_color=Color( 0.0862745, 0.0862745, 0.0862745, 1 )
-config/icon="res://assets/sprites/icon.png"
-config/version="0.0.1"
+config/icon="res://assets/sprites/cruiser-classic-red-creme.webp"
+config/version="0.0.2"
 
 [autoload]
 
@@ -67,3 +73,7 @@ pause={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
