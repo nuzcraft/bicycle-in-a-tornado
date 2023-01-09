@@ -55,11 +55,21 @@ func bicycle_clamp_on_screen():
 		
 func spawn_object():
 	var obj = object_scene.instance()
-	obj.global_position.x = camera_bounds["right"] + 200
+	obj.position.x = camera_bounds["right"] + 200
 	var y_pos = rng.randi_range(camera_bounds["top"], camera_bounds["bottom"])
-	obj.global_position.y = y_pos
+	obj.position.y = y_pos
 	add_child(obj)
+	obj.connect("collided", self, "_on_Object_collided")
 
 
 func _on_ObjectSpawnerTimer_timeout():
 	spawn_object()
+	
+func _on_Object_collided(obj, colliding_obj):
+	if colliding_obj is Bicycle:
+		obj.mode = obj.MODE_KINEMATIC
+		obj.get_parent().remove_child(obj)
+		bicycle.add_child(obj)
+	
+	
+	

@@ -18,7 +18,7 @@ current = true
 [node name="PauseLayer" parent="." instance=ExtResource( 2 )]
 
 [node name="Object" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1147, 133 )
+position = Vector2( 479, 252 )
 
 [node name="ObjectSpawnerTimer" type="Timer" parent="."]
 wait_time = 2.0
