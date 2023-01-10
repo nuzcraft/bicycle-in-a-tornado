@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/bicycle/bicycle.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/cruiser-classic-red-creme.webp" type="Texture" id=2]
+[ext_resource path="res://scenes/object/object.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 29.0
@@ -23,3 +24,6 @@ texture = ExtResource( 2 )
 position = Vector2( 0, 8 )
 rotation = 1.5708
 shape = SubResource( 1 )
+
+[node name="Object" parent="." instance=ExtResource( 3 )]
+position = Vector2( -39, -47 )

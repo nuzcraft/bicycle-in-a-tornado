@@ -70,6 +70,10 @@ func _on_Object_collided(obj, colliding_obj):
 		obj.mode = obj.MODE_KINEMATIC
 		obj.get_parent().remove_child(obj)
 		bicycle.add_child(obj)
+		var tween = get_tree().create_tween()
+		tween.tween_property(obj, "position", Vector2(-40,-50), 1)
+		tween.tween_property(obj, "rotation_degrees", 0.0, 1)
+
 	
 	
 	
