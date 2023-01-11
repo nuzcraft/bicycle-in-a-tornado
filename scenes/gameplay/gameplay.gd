@@ -66,13 +66,22 @@ func _on_ObjectSpawnerTimer_timeout():
 	spawn_object()
 	
 func _on_Object_collided(obj, colliding_obj):
-	if colliding_obj is Bicycle:
+	if (colliding_obj is Bicycle or colliding_obj.captured) and not obj.captured:
+		obj.captured = true
+		var dist = bicycle.global_position.distance_to(obj.global_position)
+		var angle =  bicycle.global_position.direction_to(obj.global_position).angle()
+		var new_angle = Vector2(cos(bicycle.rotation + angle), sin(bicycle.rotation + angle))
+		var new_pos = dist * new_angle
 		obj.mode = obj.MODE_KINEMATIC
 		obj.get_parent().remove_child(obj)
 		bicycle.add_child(obj)
+		obj.position = new_pos
+		var next_pos = bicycle.next_capture_pos
+		bicycle.capture_item(obj)
 		var tween = get_tree().create_tween()
-		tween.tween_property(obj, "position", Vector2(-40,-50), 1)
-		tween.tween_property(obj, "rotation_degrees", 0.0, 1)
+		tween.tween_property(obj, "position", next_pos, 0.25)
+		tween.parallel().tween_property(obj, "rotation_degrees", 0.0, 0.25)
+		
 
 	
 	

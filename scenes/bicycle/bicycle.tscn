@@ -26,4 +26,4 @@ rotation = 1.5708
 shape = SubResource( 1 )
 
 [node name="Object" parent="." instance=ExtResource( 3 )]
-position = Vector2( -39, -47 )
+position = Vector2( -20, -45 )
