@@ -70,7 +70,8 @@ func _on_Object_collided(obj, colliding_obj):
 		obj.captured = true
 		var dist = bicycle.global_position.distance_to(obj.global_position)
 		var angle =  bicycle.global_position.direction_to(obj.global_position).angle()
-		var new_angle = Vector2(cos(bicycle.rotation + angle), sin(bicycle.rotation + angle))
+		var new_angle = Vector2(cos(-bicycle.rotation + angle), sin(-bicycle.rotation + angle))
+		print(new_angle)
 		var new_pos = dist * new_angle
 		obj.mode = obj.MODE_KINEMATIC
 		obj.get_parent().remove_child(obj)
