@@ -34,6 +34,7 @@ func pre_start(params):
 # `start()` is called when the graphic transition ends.
 func start():
 	print("gameplay.gd: start() called")
+	bicycle.connect("release_object", self, "_on_bicycle_release_object")
 
 
 func _process(delta):
@@ -70,15 +71,20 @@ func _on_ObjectSpawnerTimer_timeout():
 		spawn_object(collectable_scene)
 	
 func _on_Object_collided(obj, colliding_obj):
-	if (colliding_obj is Bicycle or colliding_obj.captured) and not obj.captured:
-		print("collided one")
+	if (colliding_obj is Bicycle or colliding_obj.captured) and not obj.collided:
 		if (not obj.captured) and obj.is_in_group("collectable"):
-			print("collided two")
 			obj.collided = true
 			bicycle.capture_object(obj)
-		if obj.is_in_group("obstacle") and obj.collided == false:
-			print("collided three")
+		if obj.is_in_group("obstacle"):
 			obj.collided = true
 			bicycle.release_object()
+			
+func _on_bicycle_release_object(obj):
+	var pos = obj.global_position
+	obj.get_parent().remove_child(obj)
+	add_child(obj)
+	obj.mode = obj.MODE_RIGID
+	obj.position = pos
+	obj._ready()
 	
 	

@@ -1,6 +1,8 @@
 extends KinematicBody2D
 class_name Bicycle
 
+signal release_object
+
 export(int) var ACCELERATION = 150
 export(int) var FRICTION = 400
 export(int) var MAX_SPEED = 1000
@@ -57,6 +59,7 @@ func apply_rotation(input, delta):
 	
 func capture_object(obj):
 	obj.captured = true
+	obj.collided = true
 	var dist = global_position.distance_to(obj.global_position)
 	var angle =  global_position.direction_to(obj.global_position).angle()
 	var new_angle = Vector2(cos(-rotation + angle), sin(-rotation + angle))
@@ -82,4 +85,5 @@ func capture_object(obj):
 func release_object():
 	if not captured_items.empty():
 		var obj = captured_items.pop_back()
-		remove_child(obj)
+		obj.captured = false
+		emit_signal("release_object", obj)
