@@ -10,7 +10,8 @@ onready var camera_bounds = {
 onready var bicycle = $Bicycle
 
 var elapsed = 0
-var object_scene = preload("res://scenes/object/object.tscn")
+var collectable_scene = preload("res://scenes/collectable/collectable.tscn")
+var obstacle_scene = preload("res://scenes/obstacle/obstacle.tscn")
 var rng = RandomNumberGenerator.new()
 
 # `pre_start()` is called when a scene is loaded.
@@ -33,6 +34,7 @@ func pre_start(params):
 # `start()` is called when the graphic transition ends.
 func start():
 	print("gameplay.gd: start() called")
+	bicycle.connect("release_object", self, "_on_bicycle_release_object")
 
 
 func _process(delta):
@@ -53,13 +55,36 @@ func bicycle_clamp_on_screen():
 	if bicycle.global_position.y <= camera_bounds["top"] or bicycle.global_position.y >= camera_bounds["bottom"]:
 		bicycle.velocity.y = 0
 		
-func spawn_object():
-	var obj = object_scene.instance()
-	obj.global_position.x = camera_bounds["right"] + 200
-	var y_pos = rng.randi_range(camera_bounds["top"], camera_bounds["bottom"])
-	obj.global_position.y = y_pos
+func spawn_object(scene):
+	var obj = scene.instance()
+	obj.position.x = camera_bounds["right"] + 200
+	var y_pos = rng.randi_range(camera_bounds["top"] + 200, camera_bounds["bottom"] - 200)
+	obj.position.y = y_pos
 	add_child(obj)
+	obj.connect("collided", self, "_on_Object_collided")
 
 
 func _on_ObjectSpawnerTimer_timeout():
-	spawn_object()
+	if rng.randf() < 0.5:
+		spawn_object(obstacle_scene)
+	else:
+		spawn_object(collectable_scene)
+	
+func _on_Object_collided(obj, colliding_obj):
+	if (colliding_obj is Bicycle or colliding_obj.captured) and not obj.collided:
+		if (not obj.captured) and obj.is_in_group("collectable"):
+			obj.collided = true
+			bicycle.capture_object(obj)
+		if obj.is_in_group("obstacle"):
+			obj.collided = true
+			bicycle.release_object()
+			
+func _on_bicycle_release_object(obj):
+	var pos = obj.global_position
+	obj.get_parent().remove_child(obj)
+	add_child(obj)
+	obj.mode = obj.MODE_RIGID
+	obj.position = pos
+	obj._ready()
+	
+	

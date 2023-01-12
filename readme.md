@@ -4,9 +4,9 @@
 
 - [x] bicycle with controls
 - [x] flying objects
-- [ ] objects can be collected
-- [ ] obstacles
-- [ ] obstacles can knock off collected objects
+- [x] objects can be collected
+- [x] obstacles
+- [x] obstacles can knock off collected objects
 - [ ] tornado environment
 - [ ] score and timer
 - [ ] start screen
