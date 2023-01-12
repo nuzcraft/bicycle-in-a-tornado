@@ -55,7 +55,17 @@ func apply_rotation(input, delta):
 	rotation_degrees += ROTATION_SPEED * delta * input.x
 	rotation_degrees = clamp(rotation_degrees, -MAX_ROTATION_DEGREES, MAX_ROTATION_DEGREES)
 	
-func capture_item(obj):
+func capture_object(obj):
+	obj.captured = true
+	var dist = global_position.distance_to(obj.global_position)
+	var angle =  global_position.direction_to(obj.global_position).angle()
+	var new_angle = Vector2(cos(-rotation + angle), sin(-rotation + angle))
+	var new_pos = dist * new_angle
+	obj.mode = obj.MODE_KINEMATIC
+	obj.get_parent().remove_child(obj)
+	add_child(obj)
+	obj.position = new_pos
+	var next_pos = next_capture_pos
 	captured_items.append(obj)
 	if capture_pos_iterator < 4:
 		next_capture_pos += Vector2(-10, 0)
@@ -65,3 +75,11 @@ func capture_item(obj):
 		capture_pos_iterator = 0
 		obj_z_index -= 1
 	obj.z_index = obj_z_index
+	var tween = get_tree().create_tween()
+	tween.tween_property(obj, "position", next_pos, 0.25)
+	tween.parallel().tween_property(obj, "rotation_degrees", 0.0, 0.25)
+	
+func release_object():
+	if not captured_items.empty():
+		var obj = captured_items.pop_back()
+		remove_child(obj)

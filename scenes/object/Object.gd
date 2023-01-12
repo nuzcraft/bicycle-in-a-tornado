@@ -9,6 +9,7 @@ export(float) var MAX_ANGULAR_VELOCITY = 12.0
 
 var rng = RandomNumberGenerator.new()
 var captured = false
+var collided = false
 
 func _ready():
 	rng.randomize()
