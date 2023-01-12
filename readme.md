@@ -7,7 +7,7 @@
 - [x] objects can be collected
 - [x] obstacles
 - [x] obstacles can knock off collected objects
-- [ ] tornado environment
+- [x] tornado environment
 - [ ] score and timer
 - [ ] start screen
 - [ ] end screen
