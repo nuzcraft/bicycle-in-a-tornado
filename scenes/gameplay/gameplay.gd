@@ -10,7 +10,7 @@ onready var camera_bounds = {
 onready var bicycle = $Bicycle
 onready var cloud1 = $ParallaxBackground/cloud1
 onready var cloud2 = $ParallaxBackground/cloud2
-onready var dust = $ParallaxBackground/dust
+onready var dust = $ParallaxBackground2/dust
 
 var elapsed = 0
 var collectable_scene = preload("res://scenes/collectable/collectable.tscn")
@@ -44,8 +44,8 @@ func _process(delta):
 	elapsed += delta
 	bicycle_wiggle()
 	bicycle_clamp_on_screen()
-	cloud1.set_motion_offset(Vector2(-elapsed*500, 0))
-	cloud2.set_motion_offset(Vector2(-elapsed*300, 0))
+	cloud2.set_motion_offset(Vector2(-elapsed*200, 0))
+	cloud1.set_motion_offset(Vector2(-elapsed*400, 0))
 	dust.set_motion_offset(Vector2(-elapsed*1000, 0))
 
 func bicycle_wiggle():

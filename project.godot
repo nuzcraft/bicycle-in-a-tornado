@@ -42,8 +42,8 @@ config/name="Bicycle in a Tornado"
 run/main_scene="res://scenes/menu/menu.tscn"
 boot_splash/image="res://assets/splash.png"
 boot_splash/bg_color=Color( 0.0862745, 0.0862745, 0.0862745, 1 )
-config/icon="res://assets/sprites/cruiser-classic-red-creme.webp"
-config/version="0.0.3"
+config/icon="res://assets/sprites/bike.png"
+config/version="0.0.4"
 
 [autoload]
 

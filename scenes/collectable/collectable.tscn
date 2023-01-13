@@ -5,3 +5,5 @@
 
 [node name="Collectable" groups=["collectable"] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+MIN_INITIAL_IMPULSE = -450
+MAX_INITIAL_IMPULSE = -250
