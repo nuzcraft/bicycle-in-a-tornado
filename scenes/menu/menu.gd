@@ -14,11 +14,13 @@ func _on_PlayButton_pressed() -> void:
 	var params = {
 		show_progress_bar = true,
 	}
+	$BlipSound.play()
 	Game.change_scene("res://scenes/gameplay/gameplay.tscn", params)
 
 
 func _on_ExitButton_pressed() -> void:
 	# gently shutdown the game
+	$BlipSound.play()
 	var transitions = get_node_or_null("/root/Transitions")
 	if transitions:
 		transitions.fade_in({

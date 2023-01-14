@@ -16,6 +16,7 @@ var elapsed = 0
 var collectable_scene = preload("res://scenes/collectable/collectable.tscn")
 var obstacle_scene = preload("res://scenes/obstacle/obstacle.tscn")
 var rng = RandomNumberGenerator.new()
+var score = 0
 
 # `pre_start()` is called when a scene is loaded.
 # Use this function to receive params from `Game.change_scene(params)`.
@@ -47,6 +48,18 @@ func _process(delta):
 	cloud2.set_motion_offset(Vector2(-elapsed*200, 0))
 	cloud1.set_motion_offset(Vector2(-elapsed*400, 0))
 	dust.set_motion_offset(Vector2(-elapsed*1000, 0))
+	for member in get_tree().get_nodes_in_group("collectable"):
+		if not member.get_parent() == bicycle:
+			if member.global_position.x < camera_bounds["left"] - 100:
+				member.queue_free()
+			if member.global_position.x > camera_bounds["right"] + 100 and member.collided:
+				member.queue_free()
+	for member in get_tree().get_nodes_in_group("obstacle"):
+		if member.global_position.x < camera_bounds["left"] - 100:
+			member.queue_free()
+		if member.global_position.x > camera_bounds["right"] + 100 and member.collided:
+			member.queue_free()
+	$HBoxContainer/Label.text = str(score)
 
 func bicycle_wiggle():
 	bicycle.global_position.x += 0.3 * sin(2 * 0.4 * PI * elapsed)
@@ -79,11 +92,15 @@ func _on_ObjectSpawnerTimer_timeout():
 func _on_Object_collided(obj, colliding_obj):
 	if (colliding_obj is Bicycle or colliding_obj.captured) and not obj.collided:
 		if (not obj.captured) and obj.is_in_group("collectable"):
+			$CollectSound.play()
 			obj.collided = true
 			bicycle.capture_object(obj)
+			score += 1
 		if obj.is_in_group("obstacle"):
+			$HurtSound.play()
 			obj.collided = true
 			bicycle.release_object()
+			score -= 2
 			
 func _on_bicycle_release_object(obj):
 	var pos = obj.global_position
