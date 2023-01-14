@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/bicycle/bicycle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/pause-layer/pause-layer.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/sounds/hurt.wav" type="AudioStream" id=8]
 [ext_resource path="res://assets/sounds/collect.wav" type="AudioStream" id=9]
 [ext_resource path="res://assets/ui-theme.tres" type="Theme" id=10]
+[ext_resource path="res://scenes/gameplay/end-screen/end-screen.tscn" type="PackedScene" id=11]
 
 [node name="Gameplay" type="Node"]
 script = ExtResource( 5 )
@@ -23,6 +24,8 @@ current = true
 
 [node name="PauseLayer" parent="." instance=ExtResource( 2 )]
 layer = 2
+
+[node name="EndScreen" parent="." instance=ExtResource( 11 )]
 
 [node name="ObjectSpawnerTimer" type="Timer" parent="."]
 wait_time = 2.0

@@ -18,6 +18,17 @@ var obstacle_scene = preload("res://scenes/obstacle/obstacle.tscn")
 var rng = RandomNumberGenerator.new()
 var score = 0
 
+var spawner_speed = {
+	0: 2.0,
+	10: 1.5,
+	20: 1.25,
+	35: 1.0,
+	60: 0.5,
+	120: 0.4,
+	180: 0.3,
+	240: 0.25
+}
+
 # `pre_start()` is called when a scene is loaded.
 # Use this function to receive params from `Game.change_scene(params)`.
 func pre_start(params):
@@ -39,6 +50,11 @@ func pre_start(params):
 func start():
 	print("gameplay.gd: start() called")
 	bicycle.connect("release_object", self, "_on_bicycle_release_object")
+	spawn_object(collectable_scene)
+	spawn_object(collectable_scene)
+	spawn_object(collectable_scene)
+	spawn_object(collectable_scene)
+	spawn_object(collectable_scene)
 
 
 func _process(delta):
@@ -60,6 +76,7 @@ func _process(delta):
 		if member.global_position.x > camera_bounds["right"] + 100 and member.collided:
 			member.queue_free()
 	$HBoxContainer/Label.text = str(score)
+	set_spawner_speed()
 
 func bicycle_wiggle():
 	bicycle.global_position.x += 0.3 * sin(2 * 0.4 * PI * elapsed)
@@ -84,9 +101,13 @@ func spawn_object(scene):
 
 
 func _on_ObjectSpawnerTimer_timeout():
-	if rng.randf() < 0.5:
+	var r = rng.randf()
+	if r < 0.2:
 		spawn_object(obstacle_scene)
+	elif r < 0.8:
+		spawn_object(collectable_scene)
 	else:
+		spawn_object(collectable_scene)
 		spawn_object(collectable_scene)
 	
 func _on_Object_collided(obj, colliding_obj):
@@ -101,6 +122,7 @@ func _on_Object_collided(obj, colliding_obj):
 			obj.collided = true
 			bicycle.release_object()
 			score -= 2
+			$EndScreen.pause_game()
 			
 func _on_bicycle_release_object(obj):
 	var pos = obj.global_position
@@ -109,5 +131,11 @@ func _on_bicycle_release_object(obj):
 	obj.mode = obj.MODE_RIGID
 	obj.position = pos
 	obj._ready()
+	
+func set_spawner_speed():
+	for key in spawner_speed.keys():
+		if elapsed > key and $ObjectSpawnerTimer.wait_time > spawner_speed[key]:
+			$ObjectSpawnerTimer.wait_time = spawner_speed[key]
+
 	
 	
