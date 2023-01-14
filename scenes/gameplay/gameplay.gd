@@ -100,7 +100,8 @@ func _on_Object_collided(obj, colliding_obj):
 			$HurtSound.play()
 			obj.collided = true
 			bicycle.release_object()
-			score -= 2
+#			score -= 2
+			$EndScreen.pause_game()
 			
 func _on_bicycle_release_object(obj):
 	var pos = obj.global_position
