@@ -33,12 +33,14 @@ func _unhandled_input(event):
 func resume():
 	get_tree().paused = false
 	pause.hide()
+	$BlipSound.play()
 
 
 func pause_game():
 	resume_option.grab_focus()
 	get_tree().paused = true
 	pause.show()
+	$BlipSound.play()
 
 
 func _on_Resume_pressed():
@@ -46,6 +48,7 @@ func _on_Resume_pressed():
 
 
 func _on_Main_Menu_pressed():
+	$BlipSound.play()
 	Game.change_scene("res://scenes/menu/menu.tscn", {
 		'show_progress_bar': false
 	})

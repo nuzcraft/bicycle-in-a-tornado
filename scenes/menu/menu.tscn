@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/ui-theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/sprites/title.png" type="Texture" id=2]
+[ext_resource path="res://assets/sounds/blip.wav" type="AudioStream" id=3]
 [ext_resource path="res://assets/fonts/open-sans/open-sans-bold.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://scenes/menu/menu.gd" type="Script" id=5]
 
@@ -24,10 +26,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.501961, 0.203922, 0.203922, 1 )
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 2 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
@@ -144,6 +146,9 @@ margin_bottom = 168.0
 grow_horizontal = 0
 custom_colors/font_color = Color( 0.886275, 0.87451, 0.87451, 1 )
 text = "Developer 3"
+
+[node name="BlipSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_ExitButton_pressed"]

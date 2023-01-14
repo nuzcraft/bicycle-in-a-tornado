@@ -1,22 +1,26 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/object/object.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/obstacle/obstacle.gd" type="Script" id=2]
-[ext_resource path="res://assets/sprites/knife.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/knife_export.png" type="Texture" id=3]
+
+[sub_resource type="PhysicsMaterial" id=2]
+friction = 0.5
+bounce = 0.75
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 5.99989
 height = 62.0002
 
 [node name="Obstacle" groups=["obstacle"] instance=ExtResource( 1 )]
+physics_material_override = SubResource( 2 )
 script = ExtResource( 2 )
 MAX_INITIAL_TORQUE = 0.0
-MIN_INITIAL_IMPULSE = -500
-MAX_INITIAL_IMPULSE = -200
+MIN_INITIAL_IMPULSE = -600
+MAX_INITIAL_IMPULSE = -350
 MAX_ANGULAR_VELOCITY = 0.0
 
 [node name="Sprite" parent="." index="0"]
-scale = Vector2( 0.05, 0.05 )
 texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" parent="." index="1"]

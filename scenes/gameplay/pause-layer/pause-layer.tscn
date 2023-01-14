@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://assets/sounds/blip.wav" type="AudioStream" id=1]
 [ext_resource path="res://scenes/gameplay/pause-layer/pause-layer.gd" type="Script" id=2]
 [ext_resource path="res://assets/ui-theme.tres" type="Theme" id=3]
 [ext_resource path="res://assets/pause_button.png" type="Texture" id=4]
@@ -72,6 +73,9 @@ margin_right = 161.0
 margin_bottom = 88.0
 focus_mode = 2
 text = "MAIN MENU"
+
+[node name="BlipSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
 
 [connection signal="pressed" from="PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="Pause/VBoxOptions/Resume" to="." method="_on_Resume_pressed"]

@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/bicycle/bicycle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/gameplay/pause-layer/pause-layer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/sprites/clouds_2.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/clouds_1.png" type="Texture" id=4]
 [ext_resource path="res://scenes/gameplay/gameplay.gd" type="Script" id=5]
+[ext_resource path="res://assets/sprites/dust.png" type="Texture" id=6]
+[ext_resource path="res://assets/sounds/wind-01.ogg" type="AudioStream" id=7]
+[ext_resource path="res://assets/sounds/hurt.wav" type="AudioStream" id=8]
+[ext_resource path="res://assets/sounds/collect.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/ui-theme.tres" type="Theme" id=10]
 
 [node name="Gameplay" type="Node"]
 script = ExtResource( 5 )
@@ -15,9 +22,80 @@ position = Vector2( 512, 300 )
 current = true
 
 [node name="PauseLayer" parent="." instance=ExtResource( 2 )]
+layer = 2
 
 [node name="ObjectSpawnerTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_base_scale = Vector2( 3, 1 )
+
+[node name="cloud2" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = -20
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/cloud2"]
+modulate = Color( 1, 1, 1, 0.509804 )
+margin_right = 480.0
+margin_bottom = 268.0
+texture = ExtResource( 3 )
+
+[node name="cloud1" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = -10
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/cloud1"]
+modulate = Color( 1, 1, 1, 0.313726 )
+margin_right = 1200.0
+margin_bottom = 600.0
+texture = ExtResource( 4 )
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+layer = 1
+
+[node name="dust" type="ParallaxLayer" parent="ParallaxBackground2"]
+z_index = 200
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground2/dust"]
+modulate = Color( 1, 1, 1, 0.117647 )
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = ExtResource( 6 )
+
+[node name="WindNoise" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+autoplay = true
+
+[node name="CollectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = -80.0
+margin_right = 106.0
+margin_bottom = -40.0
+rect_scale = Vector2( 1.5, 1.5 )
+
+[node name="ScoreLabel" type="Label" parent="HBoxContainer"]
+margin_top = 3.0
+margin_right = 68.0
+margin_bottom = 37.0
+theme = ExtResource( 10 )
+text = "Score:"
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_left = 72.0
+margin_top = 3.0
+margin_right = 86.0
+margin_bottom = 37.0
+theme = ExtResource( 10 )
+text = "0"
 
 [connection signal="timeout" from="ObjectSpawnerTimer" to="." method="_on_ObjectSpawnerTimer_timeout"]
